@@ -1,4 +1,4 @@
-name: My CI workflow
+name: Demo CI workflow
 on: 
   push:
 jobs:
@@ -6,8 +6,8 @@ jobs:
     name: My Hello Job
     runs-on: ubuntu-latest
     steps:
-        - run: echo "Hello World"
-          name: Print hello world
+        - name: Print hello world
+          run: echo "Hello World"
         - name: Second Step
           run: echo "second"
   goodbye:
@@ -21,6 +21,12 @@ jobs:
     name: Test the Python Package
     runs-on: ubuntu-latest
     steps:
+        - name: Set up git repo
+          uses: actions/checkout@v6
+        - name: Set up specific python version
+          uses: actions/setup-python@v6
+          with:
+            python-version: 3.10
         - name: Install the package
           run: pip install .[test]
         - name: Run the tests
